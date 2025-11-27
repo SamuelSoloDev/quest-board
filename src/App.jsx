@@ -5,7 +5,9 @@ import ProgressBar from "./progressBar.jsx"
 import './App.css'
 
 function App() {
-  const [quests, setQuests] = useState([])
+  const initialQuest = localStorage.getItem("quest")
+  const parseQuest = initialQuest ? JSON.parse(initialQuest) : []
+  const [quests, setQuests] = useState(parseQuest)
 
   function addQuest(newQuest) {
     const newQuestWithId = {
@@ -15,8 +17,9 @@ function App() {
   id: crypto.randomUUID()
     }
     console.log(newQuestWithId);
-
-    setQuests([...quests, newQuestWithId])
+    const newQuestlist = [...quests, newQuestWithId]
+    localStorage.setItem("quest", JSON.stringify(newQuestlist))
+    setQuests(newQuestlist)
     console.log(quests);
 
   }
@@ -39,13 +42,16 @@ function App() {
   );
 }
 
+console.log(parseQuest);
 
   return (
-    <>
+    <div  className="w-screen h-dvh overflow-hidden
+    grid gap-2 grid-cols-12 grid-rows-9 place-items-center
+    bg-gray-900 border border-amber-300">
     <QuestForm eventOnSubmit={addQuest} ></QuestForm>
     <List questList={quests} checkQuest={checkQuest} deleteQuest={deleteQuest}></List>
     <ProgressBar list={quests}></ProgressBar>
-    </>
+    </div>
   )
 }
 

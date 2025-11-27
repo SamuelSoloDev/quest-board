@@ -29,7 +29,16 @@ function QuestForm({eventOnSubmit}) {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className='
+    w-2/3
+    h-2/3
+    relative
+    rounded-md
+    mx-auto
+    col-span-12
+    row-span-3
+    bg-red-400'>
+      <h1>Quest-Board</h1>
       <input
       type="text"
       name= "name"

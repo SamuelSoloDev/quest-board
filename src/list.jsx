@@ -4,7 +4,10 @@ import QuestItem from "./quest.jsx";
 function List({questList, deleteQuest, checkQuest}) {
 
   return(
-    <ul>
+    <ul className='
+    h-full w-full
+    border border-amber-700 rounded-sm
+    col-span-6 col-start-2 row-span-5'>
       {questList.map(q => (
         <QuestItem
           key={q.id}

@@ -8,7 +8,11 @@ function ProgressBar({list = []}) {
   }
 
   return(
-    <div className="barProgressContainer">
+    <div className="barProgressContainer h-full w-full
+    border border-amber-300 rounded-sm
+    col-span-3
+    col-start-9
+    row-span-5">
     <div className="barProgress"
     style={{
           width: `${total}%`,
