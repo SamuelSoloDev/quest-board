@@ -8,15 +8,15 @@ function ProgressBar({list = []}) {
   }
 
   return(
-    <div className="barProgressContainer h-full w-full
+    <div className="barProgressContainer h-full w-full rotate-180
     border border-amber-300 rounded-sm
     col-span-3
     col-start-9
     row-span-5">
-    <div className="barProgress"
+    <div className="barProgress w-full bg-amber-500 duration-500 ease-in-out
+"
     style={{
-          width: `${total}%`,
-          transition: "width 0.4s ease, background-color 0.3s ease"
+          height: `${total}%`,
         }}
     ></div>
   </div>
