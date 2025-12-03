@@ -2,6 +2,7 @@ import { useState } from 'react'
 import QuestForm from "./form.jsx";
 import List from "./list.jsx"
 import ProgressBar from "./progressBar.jsx"
+import { GoalSelector } from "./goalSelector.jsx";
 import './App.css'
 
 function App() {
@@ -48,6 +49,7 @@ console.log(parseQuest);
     <div  className="w-screen h-dvh overflow-hidden
     grid gap-2 grid-cols-12 grid-rows-9 place-items-center
     bg-gray-900 border border-amber-300">
+    <GoalSelector></GoalSelector>
     <QuestForm eventOnSubmit={addQuest} ></QuestForm>
     <List questList={quests} checkQuest={checkQuest} deleteQuest={deleteQuest}></List>
     <ProgressBar list={quests}></ProgressBar>
