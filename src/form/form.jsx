@@ -1,5 +1,5 @@
 import { useState } from 'react'
-
+import { TagSelector } from "./formTagSelector";
 function QuestForm({eventOnSubmit}) {
   const [quest, setQuest] = useState({
     name: "",
@@ -50,8 +50,8 @@ function QuestForm({eventOnSubmit}) {
         <option value="positive">Positive</option>
         <option value="negative">Negative</option>
       </select>
-
-      <button type='submit'>Create Quest</button>
+      <TagSelector></TagSelector>
+      <button type='submit' disabled={!TagSelector}>Create Quest</button>
     </form>
   )
 }
