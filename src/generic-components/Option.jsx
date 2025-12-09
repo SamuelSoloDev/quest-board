@@ -1,6 +1,6 @@
 
 
-export function GoalOption({name}) {
+export function Option({name}) {
   return(
     <option>{name}</option>
   )
