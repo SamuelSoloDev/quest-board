@@ -1,13 +1,17 @@
-import { useState } from "react";
+
 import {SelectField} from '../generic-components/selectField.jsx';
+import { TAGS } from "../data/tags.js";
 
 
-export function TagSelector() {
-  const Tags = [{name: "Healt"}, {name: "Fitness"}, {name: "Art"}]
-  const [tag, setTag] = useState("");
+export function TagSelector({tag, onChangeTag}) {
+  const Tags = Object.values(TAGS);
+
+
 
   function updateTag(e) {
-    setTag(e.value);
+    onChangeTag(e.target.value);
+    console.log(Tags);
+
   }
 
   return(

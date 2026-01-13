@@ -1,6 +1,5 @@
 
 function ProgressBar({list = []}) {
-  console.log(list);
 
   let total = list.filter(x => x.state === true).length * (100 / list.length)
   if (!total) {
@@ -8,15 +7,14 @@ function ProgressBar({list = []}) {
   }
 
   return(
-    <div className="barProgressContainer h-full w-full rotate-180
-    border border-amber-300 rounded-sm
-    col-span-3
-    col-start-9
-    row-span-5">
-    <div className="barProgress w-full bg-amber-500 duration-500 ease-in-out
+    <div className="barProgressContainer h-10 w-full
+    border border-orange-200 bg-yellow-200 rounded-sm
+    ">
+    <div className="barProgress h-full bg-linear-to-r from-amber-900 via-amber-800 to-orange-500 duration-500 ease-in-out
+    border rounded-sm border-none
 "
     style={{
-          height: `${total}%`,
+          width: `${total}%`,
         }}
     ></div>
   </div>

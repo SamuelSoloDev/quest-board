@@ -1,21 +1,206 @@
 import { useState } from "react";
 import { useGoal } from "../context/goalContext.jsx";
 import {SelectField} from '../generic-components/selectField.jsx';
+import { GOALS } from "../data/goals.js";
 
+
+export const ICONS = {
+  HEALTH: {
+    icon: ({ className }) => (
+      <svg xmlns="http://www.w3.org/2000/svg"
+         className={className}
+        viewBox="0 0 24 24" fill="none">
+<path d="M16 7V6.2C16 5.0799 16 4.51984 15.782 4.09202C15.5903 3.71569 15.2843 3.40973 14.908 3.21799C14.4802 3 13.9201 3 12.8 3H11.2C10.0799 3 9.51984 3 9.09202 3.21799C8.71569 3.40973 8.40973 3.71569 8.21799 4.09202C8 4.51984 8 5.0799 8 6.2V7M7 7V21M17 7V21M10 14H14M12 12V16M7.8 21H16.2C17.8802 21 18.7202 21 19.362 20.673C19.9265 20.3854 20.3854 19.9265 20.673 19.362C21 18.7202 21 17.8802 21 16.2V11.8C21 10.1198 21 9.27976 20.673 8.63803C20.3854 8.07354 19.9265 7.6146 19.362 7.32698C18.7202 7 17.8802 7 16.2 7H7.8C6.11984 7 5.27976 7 4.63803 7.32698C4.07354 7.6146 3.6146 8.07354 3.32698 8.63803C3 9.27976 3 10.1198 3 11.8V16.2C3 17.8802 3 18.7202 3.32698 19.362C3.6146 19.9265 4.07354 20.3854 4.63803 20.673C5.27976 21 6.11984 21 7.8 21Z"
+stroke="currentColor"
+stroke-width="2"
+stroke-linecap="round"
+stroke-linejoin="round"/>
+</svg>
+    ),
+  },
+
+  FITNESS: {
+    icon: ({ className }) => (
+      <svg
+        viewBox="0 0 64 64"
+        className={className}
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="4"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      >
+        <rect x="4" y="20" width="6" height="24" rx="2" />
+        <rect x="12" y="18" width="6" height="28" rx="2" />
+        <line x1="18" y1="32" x2="46" y2="32" />
+        <rect x="46" y="18" width="6" height="28" rx="2" />
+        <rect x="54" y="20" width="6" height="24" rx="2" />
+      </svg>
+    ),
+  },
+
+  ART: {
+    icon: ({ className }) => (
+      <svg xmlns="http://www.w3.org/2000/svg" className={className} viewBox="0 0 24 24" fill="none">
+<path d="M11.7935 10.7934L20.4603 3.45681C20.7653 3.19859 21.2173 3.21734 21.5 3.49992C21.7826 3.78253 21.8013 4.23461 21.5431 4.53966L14.2065 13.2064M11.7935 10.7934L9.58785 12.6605C8.7162 13.3984 8.66122 14.7236 9.46875 15.5311C10.2763 16.3386 11.6015 16.2837 12.3393 15.412L14.2065 13.2064M11.7935 10.7934L14.2065 13.2064M10.3398 17.75C10.3398 19.5449 8.88477 21 7.08984 21H2.5L2.7103 20.8948C3.74629 20.3768 4.26276 19.1914 3.93667 18.0799C3.87245 17.8611 3.83395 17.6334 3.85777 17.4066C4.02929 15.7731 5.41089 14.5 7.08984 14.5C8.88477 14.5 10.3398 15.955 10.3398 17.75Z"
+stroke="currentColor"
+stroke-width="2"
+stroke-linecap="round"
+stroke-linejoin="round"/>
+</svg>
+    ),
+  },
+
+  LEARNING: {
+    icon: ({ className }) => (
+      <svg xmlns="http://www.w3.org/2000/svg"
+      className={className}
+      viewBox="0 0 24 24"
+      fill="none">
+<path d="M12 10.4V20M12 10.4C12 8.15979 12 7.03969 11.564 6.18404C11.1805 5.43139 10.5686 4.81947 9.81596 4.43597C8.96031 4 7.84021 4 5.6 4H4.6C4.03995 4 3.75992 4 3.54601 4.10899C3.35785 4.20487 3.20487 4.35785 3.10899 4.54601C3 4.75992 3 5.03995 3 5.6V16.4C3 16.9601 3 17.2401 3.10899 17.454C3.20487 17.6422 3.35785 17.7951 3.54601 17.891C3.75992 18 4.03995 18 4.6 18H7.54668C8.08687 18 8.35696 18 8.61814 18.0466C8.84995 18.0879 9.0761 18.1563 9.29191 18.2506C9.53504 18.3567 9.75977 18.5065 10.2092 18.8062L12 20M12 10.4C12 8.15979 12 7.03969 12.436 6.18404C12.8195 5.43139 13.4314 4.81947 14.184 4.43597C15.0397 4 16.1598 4 18.4 4H19.4C19.9601 4 20.2401 4 20.454 4.10899C20.6422 4.20487 20.7951 4.35785 20.891 4.54601C21 4.75992 21 5.03995 21 5.6V16.4C21 16.9601 21 17.2401 20.891 17.454C20.7951 17.6422 20.6422 17.7951 20.454 17.891C20.2401 18 19.9601 18 19.4 18H16.4533C15.9131 18 15.643 18 15.3819 18.0466C15.15 18.0879 14.9239 18.1563 14.7081 18.2506C14.465 18.3567 14.2402 18.5065 13.7908 18.8062L12 20"
+stroke="currentColor"
+stroke-width="2"
+stroke-linecap="round"
+stroke-linejoin="round"/>
+</svg>
+    ),
+  },
+
+  CAREER: {
+    icon: ({ className }) => (
+      <svg xmlns="http://www.w3.org/2000/svg"
+           viewBox="0 0 24 24"
+           className={className}
+           fill="none">
+<path d="M16 7V6.2C16 5.0799 16 4.51984 15.782 4.09202C15.5903 3.71569 15.2843 3.40973 14.908 3.21799C14.4802 3 13.9201 3 12.8 3H11.2C10.0799 3 9.51984 3 9.09202 3.21799C8.71569 3.40973 8.40973 3.71569 8.21799 4.09202C8 4.51984 8 5.0799 8 6.2V7M9 15V12M15 15V12M3.02721 10.0263C3.38776 10.3719 7.28572 14 12 14C16.7143 14 20.6122 10.3719 20.9728 10.0263M3.02721 10.0263C3 10.493 3 11.0665 3 11.8V16.2C3 17.8802 3 18.7202 3.32698 19.362C3.6146 19.9265 4.07354 20.3854 4.63803 20.673C5.27976 21 6.11984 21 7.8 21H16.2C17.8802 21 18.7202 21 19.362 20.673C19.9265 20.3854 20.3854 19.9265 20.673 19.362C21 18.7202 21 17.8802 21 16.2V11.8C21 11.0665 21 10.493 20.9728 10.0263M3.02721 10.0263C3.06233 9.4241 3.14276 8.99959 3.32698 8.63803C3.6146 8.07354 4.07354 7.6146 4.63803 7.32698C5.27976 7 6.11984 7 7.8 7H16.2C17.8802 7 18.7202 7 19.362 7.32698C19.9265 7.6146 20.3854 8.07354 20.673 8.63803C20.8572 8.99959 20.9377 9.4241 20.9728 10.0263"
+stroke="currentColor"
+stroke-width="2"
+stroke-linecap="round"
+stroke-linejoin="round"/>
+</svg>
+    ),
+  },
+
+  PERSONAL: {
+    icon: ({ className }) => (
+      <svg
+        viewBox="0 0 24 24"
+        className={className}
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      >
+        <path d="M22 9L12 4L2 9L12 14L22 9ZM22 9V15M19 10.5V16.5L12 20L5 16.5V10.5" />
+      </svg>
+    ),
+  },
+
+  SOCIAL: {
+    icon: ({ className }) => (
+      <svg xmlns="http://www.w3.org/2000/svg"
+      className={className}
+      viewBox="0 0 24 24"
+      fill="none">
+<path
+d="M19.9998 10V7.2C19.9998 6.0799 19.9998 5.51984 19.806 5.09202C19.6355 4.71569 19.3636 4.40973 19.0291 4.21799C18.6488 4 18.151 4 17.1553 4H6.8442C5.84855 4 5.35073 4 4.97044 4.21799C4.63593 4.40973 4.36396 4.71569 4.19352 5.09202C3.99976 5.51984 3.99976 6.0799 3.99976 7.2V10M6.33887 14H6.34887M3.50977 20C3.9216 18.8348 5.03284 18 6.33906 18C7.64528 18 8.75652 18.8348 9.16835 20M11.9989 14H12.0089M9.1698 20C9.58164 18.8348 10.6929 18 11.9991 18C13.3053 18 14.4166 18.8348 14.8284 20M17.6588 14H17.6688M14.8297 20C15.2415 18.8348 16.3528 18 17.659 18C18.9652 18 20.0765 18.8348 20.4883 20M7.33887 14C7.33887 14.5523 6.89115 15 6.33887 15C5.78658 15 5.33887 14.5523 5.33887 14C5.33887 13.4477 5.78658 13 6.33887 13C6.89115 13 7.33887 13.4477 7.33887 14ZM12.9989 14C12.9989 14.5523 12.5512 15 11.9989 15C11.4466 15 10.9989 14.5523 10.9989 14C10.9989 13.4477 11.4466 13 11.9989 13C12.5512 13 12.9989 13.4477 12.9989 14ZM18.6588 14C18.6588 14.5523 18.2111 15 17.6588 15C17.1065 15 16.6588 14.5523 16.6588 14C16.6588 13.4477 17.1065 13 17.6588 13C18.2111 13 18.6588 13.4477 18.6588 14Z"
+stroke="currentColor"
+stroke-width="2"
+stroke-linecap="round"
+stroke-linejoin="round"/>
+</svg>
+    ),
+  },
+
+  LIFE: {
+    icon: ({ className }) => (
+      <svg xmlns="http://www.w3.org/2000/svg"
+      className={className}
+      viewBox="0 0 24 24"
+      fill="none">
+<path d="M5 9.77746V16.2C5 17.8802 5 18.7203 5.32698 19.362C5.6146 19.9265 6.07354 20.3854 6.63803 20.673C6.78894 20.7499 6.95082 20.8087 7.13202 20.8537M21 12L15.5668 5.96399C14.3311 4.59122 13.7133 3.90484 12.9856 3.65144C12.3466 3.42888 11.651 3.42893 11.0119 3.65159C10.2843 3.90509 9.66661 4.59157 8.43114 5.96452L3 12M19 5.00002V16.2C19 17.8802 19 18.7203 18.673 19.362C18.3854 19.9265 17.9265 20.3854 17.362 20.673C17.2111 20.7499 17.0492 20.8087 16.868 20.8537M7.13202 20.8537C7.65017 18.6448 9.63301 17 12 17C14.367 17 16.3498 18.6448 16.868 20.8537M7.13202 20.8537C7.72133 21 8.51495 21 9.8 21H14.2C15.485 21 16.2787 21 16.868 20.8537M14 12C14 13.1046 13.1046 14 12 14C10.8954 14 10 13.1046 10 12C10 10.8954 10.8954 10 12 10C13.1046 10 14 10.8954 14 12Z"
+stroke="currentColor"
+stroke-width="2"
+stroke-linecap="round"
+stroke-linejoin="round"/>
+</svg>
+    ),
+  },
+
+  FUN: {
+    icon: ({ className }) => (
+      <svg xmlns="http://www.w3.org/2000/svg"
+      className={className}
+      viewBox="0 0 24 24"
+      fill="none">
+<path d="M6.00014 11H10.0001M8.00014 9V13M15.0001 12H15.0101M18.0001 10H18.0101M10.4491 5H13.5512C16.1761 5 17.4885 5 18.5187 5.49743C19.4257 5.9354 20.1793 6.63709 20.6808 7.51059C21.2503 8.5027 21.3438 9.81181 21.5309 12.43L21.7769 15.8745C21.8975 17.5634 20.5599 19 18.8667 19C18.0008 19 17.1796 18.6154 16.6253 17.9502L16.2501 17.5C15.907 17.0882 15.7354 16.8823 15.54 16.7159C15.1305 16.3672 14.6346 16.1349 14.1045 16.0436C13.8516 16 13.5836 16 13.0476 16H10.9527C10.4167 16 10.1487 16 9.89577 16.0436C9.36563 16.1349 8.86981 16.3672 8.46024 16.7159C8.26487 16.8823 8.09329 17.0882 7.75013 17.5L7.37497 17.9502C6.82064 18.6154 5.99949 19 5.13359 19C3.44037 19 2.10275 17.5634 2.22339 15.8745L2.46942 12.43C2.65644 9.81181 2.74994 8.5027 3.31951 7.51059C3.82098 6.63709 4.57458 5.9354 5.48159 5.49743C6.51176 5 7.8242 5 10.4491 5Z"
+stroke="currentColor"
+stroke-width="2"
+stroke-linecap="round"
+stroke-linejoin="round"/>
+</svg>
+    ),
+  },
+};
+
+
+export function SvgIcon({iconKey, className}) {
+  const iconData = ICONS[iconKey];
+
+  const IconComponent = iconData.icon;
+
+  return(
+    <div>
+      <IconComponent className={className}></IconComponent>
+    </div>
+  )
+}
 
 export function SelectGoal() {
-  const Goals = [{name: "Healt"}, {name: "Fitness"}, {name: "Art"}]
-  const {goal, setGoal} = useGoal;
+  let GoalsList = Object.values(GOALS)
+  const {goal, setGoal} = useGoal();
 
-  function updateGoal(e) {
-    setGoal(e.value);
+  function updateGoal(goalValue) {
+    setGoal(GOALS[goalValue.toUpperCase()]);
+    console.log(goal);
   }
 
   return(
-    <SelectField
-    options={Goals}
-    value={goal}
-    onChange={updateGoal}>
-    </SelectField>
+    <div className="grid grid-cols-3 grid-rows-3 gap-3 p-3
+    h-full w-full
+    m-auto
+    relative
+    border border-indigo-500 rounded-lg
+    bg-gray-500">
+      {GoalsList.map(g => (
+        <button onClick={()=> updateGoal(g.name)}
+        key={g.name}
+        className="h-full w-full
+        relative
+        bg-[#8b4513]
+        shadow-[4px_4px_0_0_rgba(212,175,55,1)]
+  active:translate-x-1
+  active:translate-y-1
+  active:shadow-none
+  transition-all
+        flex flex-col justify-center items-center
+         border rounded-lg">
+       <div className="
+          absolute
+          bg-[#d4af37]
+          flex flex-col justify-center items-center
+           h-30 w-30 border border-amber-50
+           rounded-full">
+            <SvgIcon
+          iconKey={g.name.toLocaleUpperCase()}
+          className={"w-18 h-18 text-[#f4ebd0] z-40"} ></SvgIcon>
+          <p className="z-20 text-[#A68A64] font-bold">{g.name}</p>
+            </div>
+        </button>
+
+      ))}
+
+    </div>
   )
 }

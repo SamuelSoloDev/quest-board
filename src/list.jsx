@@ -1,18 +1,23 @@
 import { useState } from 'react'
 import QuestItem from "./quest.jsx";
+import { useGoal } from "./context/goalContext.jsx";
 
 function List({questList, deleteQuest, checkQuest}) {
 
+
   return(
     <ul className='
-    h-full w-full
-    border border-amber-700 rounded-sm
-    col-span-6 col-start-2 row-span-5'>
+    flex-1
+    overflow-y-auto
+    h-full w-full flex flex-col gap-4
+    py-2 px-2 rounded-lg
+    col-span-8 col-start-2 row-span-5'>
       {questList.map(q => (
         <QuestItem
           key={q.id}
           id={q.id}
           name={q.name}
+          tag={q.tag.name}
           type={q.type}
           state={q.state}
           checkQuest={checkQuest}
