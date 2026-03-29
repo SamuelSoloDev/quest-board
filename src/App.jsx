@@ -28,11 +28,7 @@ const [goalStateSelector, setGoalStateSelector] = useState(false);
 
 const [statsPanelState, setStatsPanelState] = useState(false);
 
-const [currentDay, setCurrentDay] = useState(() => {
-  const savedDay = localStorage.getItem("Date");
-
-  return savedDay ?? new Date().toDateString();
-});
+const [currentDay, setCurrentDay] = useState( new Date().toDateString());
 
 
 const [currentStreak, setCurrentStreak] = useState(() => {
@@ -346,7 +342,17 @@ changeStreak={changeStreak}></StreakVisualizer>
        questList={sortedListByPriority(quests, goal)}
        checkQuest={checkQuest}
        deleteQuest={deleteQuest}></List>
-       <button className='h-20 text-white uppercase font-bold text-3xl'
+
+    </div>
+   </div>
+  )
+}
+
+export default App
+
+
+
+/*<button className='h-20 text-white uppercase font-bold text-3xl'
        onClick={openStatsPanel}>STATS</button>
        {statsPanelState && (
         <Modal>
@@ -372,10 +378,4 @@ changeStreak={changeStreak}></StreakVisualizer>
           <StatsPanel stats={stats}>
           </StatsPanel>
         </Modal>
-       )}
-    </div>
-   </div>
-  )
-}
-
-export default App
+       )} */
