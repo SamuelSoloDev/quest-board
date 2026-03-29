@@ -15,7 +15,7 @@ import { DEFAULT_STATS } from "./data/stats.js";
 import { StreakVisualizer } from "./ui/streakVisualizer.jsx";
 
 import './App.css'
-import { parse } from 'dotenv';
+
 
 function App() {
 
