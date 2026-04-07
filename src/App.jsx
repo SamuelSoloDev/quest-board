@@ -46,7 +46,7 @@ const [stats, setStats] = useState(() => {
 
 
 function onDayChange(day) {
-  if (isPerfectDay) {
+  if (isPerfectDay()) {
     setCurrentStreak(prevStreak => handlePerfectDay(prevStreak))
     localStorage.setItem("lastPerfectDay", currentDay)
     localStorage.setItem("streak", currentStreak)
@@ -61,6 +61,8 @@ useEffect(() => {
 }, [stats]);
 
 useEffect(() => {
+  console.log(localStorage.getItem("Date"));
+
   if (currentDay !== localStorage.getItem("Date")) {
     setQuests(prevQuests =>
     prevQuests.map(quest => ({
@@ -69,6 +71,7 @@ useEffect(() => {
       rewardedToday: false,
     }))
   );
+  localStorage.setItem("Date", currentDay)
   }
 }, [currentDay]);
 
