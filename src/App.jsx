@@ -28,7 +28,7 @@ const [goalStateSelector, setGoalStateSelector] = useState(false);
 
 const [statsPanelState, setStatsPanelState] = useState(false);
 
-const [currentDay, setCurrentDay] = useState(new Date().toDateString());
+const [currentDay, setCurrentDay] = useState("Tue Apr 07 2026");
 
 
 const [currentStreak, setCurrentStreak] = useState(() => {
@@ -82,6 +82,7 @@ useEffect(() => {
 
     resetQuest()
   onDayChange(currentDay)
+  saveDate(currentDay)
   }
 }, [currentDay]);
 
