@@ -28,7 +28,7 @@ const [goalStateSelector, setGoalStateSelector] = useState(false);
 
 const [statsPanelState, setStatsPanelState] = useState(false);
 
-const [currentDay, setCurrentDay] = useState( new Date().toDateString());
+const [currentDay, setCurrentDay] = useState(new Date().toDateString());
 
 
 const [currentStreak, setCurrentStreak] = useState(() => {
@@ -44,6 +44,9 @@ const [stats, setStats] = useState(() => {
   return savedStats ? JSON.parse(savedStats) : DEFAULT_STATS;
 });
 
+useEffect(() => {
+  localStorage.setItem("stats", JSON.stringify(stats));
+}, [stats]);
 
 function onDayChange(day) {
   if (isPerfectDay()) {
@@ -51,35 +54,61 @@ function onDayChange(day) {
     localStorage.setItem("lastPerfectDay", currentDay)
     localStorage.setItem("streak", currentStreak)
   }
+  console.log(day);
 
-  saveDate(day)
-  setCurrentDay(day)
+
+  if (day !== currentDay) {
+    console.log("La fecha ahora ha cambiado");
+    resetQuest()
+    setCurrentDay(day)
+  }
 }
 
-useEffect(() => {
-  localStorage.setItem("stats", JSON.stringify(stats));
-}, [stats]);
-
-useEffect(() => {
-  console.log(localStorage.getItem("Date"));
-
-  if (currentDay !== localStorage.getItem("Date")) {
-    setQuests(prevQuests =>
+function resetQuest() {
+  setQuests(prevQuests =>
     prevQuests.map(quest => ({
       ...quest,
       state: false,
       rewardedToday: false,
     }))
   );
-  localStorage.setItem("Date", currentDay)
+}
+
+useEffect(() => {
+  console.log(localStorage.getItem("Date"));
+
+  if (currentDay !== localStorage.getItem("Date")) {
+    console.log("no es la misma");
+
+    resetQuest()
+  onDayChange(currentDay)
   }
 }, [currentDay]);
 
 
 
+// useEffect del bug
+
+useEffect(() => {
+  const interval = setInterval(() => {
+
+    const today = new Date().toDateString()
+
+    console.log(today);
+
+    if (currentDay !== today) {
+      console.log("No es el mismo día");
+      console.log(today);
+
+      onDayChange(today);
+    }
+  }, 5000);
+
+  return () => clearInterval(interval);
+}, [currentDay]);
+
+
 function changeDay() {
-
-
   setCurrentDay(yesterday.toDateString());
 }
 
@@ -219,7 +248,7 @@ items-center
 mt-3
 '>
 
-  <DateMonitor  onDayChange={onDayChange} currentDay={currentDay}></DateMonitor>
+  <DateMonitor currentDay={currentDay}></DateMonitor>
   <button
   onClick={() => openModal() }
   title="Add New"

@@ -6,7 +6,7 @@ const FAIL_COUNT_THRESHOLD = 3;
 const BASE_PRIORITY = 1;
 export function sortedListByPriority(questList, goal) {
   let newList = questList.map(quest => (calcPriority(quest, goal))).sort((a, b) => b.priority - a.priority);
- console.log(newList);
+ //console.log(newList);
 
   return newList
 }
@@ -14,14 +14,14 @@ export function sortedListByPriority(questList, goal) {
 export function calcPriority(quest, goal) {
   quest.priority = BASE_PRIORITY;
   if (quest.tag.id === goal?.id) {
-    console.log("es igual");
-    console.log(quest.tag.id);
+    //console.log("es igual");
+    //console.log(quest.tag.id);
 
     quest.priority += GOAL_MATCH_BONUS;
   }
   else {
-    console.log("no es igual");
-    console.log(quest);
+    //console.log("no es igual");
+    //console.log(quest);
   }
 
  /* if (quest.impact >= HIGH_IMPACT_THRESHOLD) {
