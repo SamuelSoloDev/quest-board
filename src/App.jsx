@@ -54,11 +54,11 @@ function onDayChange(day) {
     localStorage.setItem("lastPerfectDay", currentDay)
     localStorage.setItem("streak", currentStreak)
   }
-  console.log(day);
+  //console.log(day);
 
 
   if (day !== currentDay) {
-    console.log("La fecha ahora ha cambiado");
+    //console.log("La fecha ahora ha cambiado");
     resetQuest()
     setCurrentDay(day)
   }
@@ -75,10 +75,10 @@ function resetQuest() {
 }
 
 useEffect(() => {
-  console.log(localStorage.getItem("Date"));
+  //console.log(localStorage.getItem("Date"));
 
   if (currentDay !== localStorage.getItem("Date")) {
-    console.log("no es la misma");
+    //console.log("no es la misma");
 
     resetQuest()
   onDayChange(currentDay)
@@ -94,11 +94,11 @@ useEffect(() => {
 
     const today = new Date().toDateString()
 
-    console.log(today);
+    //console.log(today);
 
     if (currentDay !== today) {
-      console.log("No es el mismo día");
-      console.log(today);
+      //console.log("No es el mismo día");
+      //console.log(today);
 
       onDayChange(today);
     }
@@ -151,19 +151,19 @@ useEffect(() => {
       priority: 1,
       rewardedToday: false
     }
-    console.log(newQuestWithId);
+    //console.log(newQuestWithId);
     const newQuestlist = [...quests, newQuestWithId]
 
     setQuests(newQuestlist)
-    console.log(quests);
+    //console.log(quests);
     closeModal();
   }
 
   function deleteQuest(id) {
-    console.log(id);
+    //console.log(id);
 
     setQuests(quests.filter((quest) => quest.id !== id ))
-    console.log(id);
+    //console.log(id);
 
   }
 
@@ -204,32 +204,32 @@ const perfectDay = isPerfectDay();
 
 function openModal() {
   setModalState(true)
-  console.log("abierto");
+  //console.log("abierto");
 
 }
 function closeModal() {
   setModalState(false)
-  console.log("cerrado");
+  //console.log("cerrado");
 }
 
 function openGoalSelector(){
   setGoalStateSelector(true)
-  console.log("Abierto");
+  //console.log("Abierto");
 }
 
 function closeGoalSelector() {
   setGoalStateSelector(false);
-  console.log("Cerrado");
+  //console.log("Cerrado");
 }
 
 function openStatsPanel() {
   setStatsPanelState(true)
-  console.log("abierto");
+  //console.log("abierto");
 }
 
 function closeStatsPanel() {
   setStatsPanelState(false);
-  console.log("cerrado");
+  //console.log("cerrado");
 }
   return (
     <div  className="w-screen h-dvh overflow-hidden
